@@ -50,8 +50,9 @@ function makeCard(product) {
   image.width = 298;
   image.height = 210;
   photo.append(image);
-  if (product.discountPercentage) {
-    photo.append(createElement('span', 'discount', `-${Math.round(product.discountPercentage)}%`));
+  const discount = Math.round(product.discountPercentage);
+  if (discount > 0) {
+    photo.append(createElement('span', 'discount', `-${discount}%`));
   }
   const info = createElement('div', 'product-info');
   const add = createElement('button', 'add-to-cart', 'Tambah Ke Keranjang');
@@ -157,9 +158,13 @@ function renderCart() {
       button.setAttribute('aria-label', label);
       button.disabled = action === 'increase' && (!allProducts.length || quantity >= product.stock);
       controls.append(button);
-      if (action === 'decrease') controls.append(createElement('span', '', String(quantity)));
     }
-    info.append(createElement('strong', '', title), createElement('span', '', money.format(product.price || 0)), controls);
+    info.append(
+      createElement('strong', '', title),
+      createElement('span', '', money.format(product.price || 0)),
+      createElement('p', 'cart-amount', `Amount: ${quantity}`),
+      controls
+    );
     row.append(info);
     cartItems.append(row);
   }
@@ -194,9 +199,9 @@ function openDetails(id) {
   if (!product) return;
   selectedProductId = id;
   document.getElementById('detail-title').textContent = product.title;
-  document.getElementById('detail-brand').textContent = product.brand || '-';
+
   document.getElementById('detail-price').textContent = money.format(product.price);
-  document.getElementById('detail-stock').textContent = `Stok: ${product.stock}`;
+  document.getElementById('detail-stock').textContent = `Stock: ${product.stock}`;
   document.getElementById('detail-description').textContent = product.description;
   const image = document.getElementById('detail-image');
   image.src = product.thumbnail;
@@ -208,6 +213,117 @@ function openDetails(id) {
 function debounce(fn, delay) {
   let timer;
   return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+}
+
+function setupFilterMenus() {
+  if (!('showPopover' in HTMLElement.prototype)) return;
+
+  for (const select of document.querySelectorAll('.catalog-filters select')) {
+    const label = document.querySelector(`label[for="${select.id}"]`).textContent;
+    const trigger = createElement('button', 'filter-trigger');
+    const caption = createElement('span');
+    const menu = createElement('div', 'filter-popup');
+    trigger.type = 'button';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', `${select.id}-menu`);
+    trigger.append(caption);
+    menu.id = `${select.id}-menu`;
+    menu.setAttribute('popover', 'auto');
+    menu.setAttribute('role', 'listbox');
+    menu.setAttribute('aria-label', label);
+    select.after(trigger);
+    document.body.append(menu);
+    select.hidden = true;
+
+    const syncCaption = () => {
+      caption.textContent = select.selectedOptions[0]?.textContent || label;
+      trigger.setAttribute('aria-label', `${label}: ${caption.textContent}`);
+    };
+    select.addEventListener('change', syncCaption);
+    syncCaption();
+
+    const positionMenu = () => {
+      const rect = trigger.getBoundingClientRect();
+      const width = Math.min(Math.max(rect.width, 200), innerWidth - 24);
+      const below = innerHeight - rect.bottom - 12;
+      const above = rect.top - 12;
+      const idealHeight = Math.min(280, menu.scrollHeight + 2);
+      const openAbove = below < Math.min(160, idealHeight) && above > below;
+      const availableHeight = Math.max(52, Math.min(280, (openAbove ? above : below) - 6));
+      const height = Math.max(52, Math.floor((availableHeight - 12) / 40) * 40 + 12);
+      menu.style.width = `${width}px`;
+      menu.style.maxHeight = `${height}px`;
+      menu.style.left = `${Math.max(12, Math.min(rect.left, innerWidth - width - 12))}px`;
+      menu.style.top = `${openAbove ? Math.max(8, rect.top - Math.min(height, idealHeight) - 6) : rect.bottom + 6}px`;
+    };
+
+    const openMenu = () => {
+      menu.replaceChildren(...[...select.options].map(option => {
+        const item = createElement('button', 'filter-option', option.textContent);
+        item.type = 'button';
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', String(option.value === select.value));
+        item.dataset.value = option.value;
+        item.tabIndex = -1;
+        item.disabled = option.disabled;
+        return item;
+      }));
+      menu.showPopover();
+      positionMenu();
+      const selected = [...menu.children].find(item => item.dataset.value === select.value);
+      (selected || menu.firstElementChild)?.focus({ preventScroll: true });
+      selected?.scrollIntoView({ block: 'nearest' });
+    };
+
+    trigger.addEventListener('click', () => {
+      if (menu.matches(':popover-open')) menu.hidePopover();
+      else openMenu();
+    });
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!menu.matches(':popover-open')) openMenu();
+      }
+    });
+    menu.addEventListener('click', event => {
+      const option = event.target.closest('.filter-option');
+      if (!option) return;
+      select.value = option.dataset.value;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      menu.hidePopover();
+      trigger.focus({ preventScroll: true });
+    });
+    menu.addEventListener('keydown', event => {
+      const options = [...menu.querySelectorAll('.filter-option:not(:disabled)')];
+      const index = options.indexOf(document.activeElement);
+      let next = index;
+      if (event.key === 'ArrowDown') next = Math.min(index + 1, options.length - 1);
+      else if (event.key === 'ArrowUp') next = Math.max(index - 1, 0);
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = options.length - 1;
+      else if (event.key === 'Escape') {
+        event.preventDefault();
+        menu.hidePopover();
+        trigger.focus({ preventScroll: true });
+        return;
+      } else if (event.key === 'Tab') {
+        menu.hidePopover();
+        return;
+      } else return;
+      event.preventDefault();
+      options[next]?.focus({ preventScroll: true });
+      options[next]?.scrollIntoView({ block: 'nearest' });
+    });
+    menu.addEventListener('toggle', event => {
+      trigger.setAttribute('aria-expanded', String(event.newState === 'open'));
+    });
+    window.addEventListener('resize', () => { if (menu.matches(':popover-open')) positionMenu(); });
+    window.addEventListener('scroll', () => { if (menu.matches(':popover-open')) menu.hidePopover(); });
+    document.querySelector('.product-viewport').addEventListener('scroll', () => {
+      if (menu.matches(':popover-open')) menu.hidePopover();
+    });
+  }
 }
 
 grid.addEventListener('click', event => {
@@ -255,6 +371,7 @@ for (const dialog of [detailDialog, cartDialog]) {
 document.getElementById('product-search').addEventListener('input', debounce(applyFilters, 400));
 document.getElementById('category-filter').addEventListener('change', applyFilters);
 document.getElementById('sort-filter').addEventListener('change', applyFilters);
+setupFilterMenus();
 document.getElementById('load-more').addEventListener('click', () => { visibleCount += PAGE_SIZE; renderProducts(); });
 document.querySelector('.exit-button').addEventListener('click', () => localStorage.removeItem('firstName'));
 

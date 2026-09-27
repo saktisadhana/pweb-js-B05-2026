@@ -18,10 +18,15 @@
           <img src="../asset/seno-shop.svg" alt="SENO Shop" width="200" height="88">
         </a>
         <div class="catalog-toolbar">
-          <button id="cart-button" class="cart-button" type="button" aria-label="Buka keranjang, 0 produk" aria-haspopup="dialog">Keranjang <span id="cart-count" class="cart-count" aria-hidden="true">0</span></button>
+          <button id="cart-button" class="cart-button" type="button" aria-label="Buka keranjang, 0 produk" aria-haspopup="dialog">
+            Keranjang <span id="cart-count" class="cart-count" aria-hidden="true">0</span>
+          </button>
           <label class="catalog-search">
             <span class="visually-hidden">Cari Produk atau Kategori</span>
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.5"/>
+              <path d="m15.5 15.5 4.5 4.5"/>
+            </svg>
             <input id="product-search" type="search" placeholder="Cari Produk atau Kategori" autocomplete="off">
           </label>
         </div>
@@ -35,56 +40,89 @@
         <p id="welcome-text" class="welcome-text"></p>
         <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
         <div class="catalog-filters">
-          <label><span class="visually-hidden">Kategori</span><select id="category-filter"><option value="all">Semua Kategori</option></select></label>
-          <label><span class="visually-hidden">Urutkan</span><select id="sort-filter">
-            <option value="default">Urutkan</option>
-            <option value="price-asc">Harga Terendah</option>
-            <option value="price-desc">Harga Tertinggi</option>
-            <option value="rating-desc">Rating Tertinggi</option>
-          </select></label>
+          <div class="catalog-filter">
+            <label for="category-filter" class="visually-hidden">Kategori</label>
+            <select id="category-filter">
+              <option value="all">Semua Kategori</option>
+            </select>
+          </div>
+          <div class="catalog-filter">
+            <label for="sort-filter" class="visually-hidden">Urutkan</label>
+            <select id="sort-filter">
+              <option value="default">Urutkan</option>
+              <option value="price-asc">Harga Terendah</option>
+              <option value="price-desc">Harga Tertinggi</option>
+              <option value="rating-desc">Rating Tertinggi</option>
+            </select>
+          </div>
         </div>
-        <div id="product-grid" class="product-grid" aria-live="polite"><p>Memuat produk...</p></div>
+        <div id="product-grid" class="product-grid" aria-live="polite">
+          <p>Memuat produk...</p>
+        </div>
         <button id="load-more" class="load-more" type="button" hidden>Muat Lebih Banyak</button>
       </section>
     </main>
 
     <p id="cart-status" class="visually-hidden" role="status" aria-live="polite"></p>
-    <dialog id="product-dialog" class="shop-dialog product-dialog" aria-labelledby="detail-title">
+    <dialog id="product-dialog" class="shop-dialog product-dialog" aria-labelledby="detail-heading">
       <div class="dialog-heading">
-        <span>DETAIL PRODUK</span>
-        <form method="dialog"><button class="dialog-close" type="submit" aria-label="Tutup detail produk">&times;</button></form>
+        <h2 id="detail-heading">
+          <img src="../asset/catalog/product-dialog-title.svg" alt="Produk" width="400" height="80">
+        </h2>
+        <form method="dialog">
+          <button class="dialog-close" type="submit" aria-label="Tutup detail produk">&times;</button>
+        </form>
       </div>
       <div class="detail-layout">
-        <div class="detail-photo"><img id="detail-image" alt="" width="298" height="210"></div>
+        <div class="detail-photo">
+          <img id="detail-image" alt="" width="485" height="485">
+        </div>
         <div class="detail-content">
-          <h2 id="detail-title"></h2>
-          <p class="detail-brand">Brand: <span id="detail-brand"></span></p>
+          <h3 id="detail-title"></h3>
           <p id="detail-price" class="detail-price"></p>
           <p id="detail-stock" class="detail-stock"></p>
           <p id="detail-description" class="detail-description"></p>
-          <button id="detail-add" class="dialog-primary" type="button">Tambah ke Keranjang</button>
+          <button id="detail-add" class="dialog-primary" type="button">Tambah Ke Keranjang</button>
         </div>
       </div>
     </dialog>
 
     <dialog id="cart-dialog" class="shop-dialog cart-dialog" aria-labelledby="cart-title">
       <div class="dialog-heading">
-        <span>KERANJANG BELANJA</span>
-        <form method="dialog"><button class="dialog-close" type="submit" aria-label="Tutup keranjang">&times;</button></form>
+        <h2 id="cart-title">
+          <img src="../asset/catalog/cart-dialog-title.svg" alt="Keranjang" width="900" height="80">
+        </h2>
+        <form method="dialog">
+          <button class="dialog-close" type="submit" aria-label="Tutup keranjang">&times;</button>
+        </form>
       </div>
-      <h2 id="cart-title">Keranjang Anda</h2>
-      <p id="cart-empty" class="cart-empty">Keranjang masih kosong.</p>
-      <ul id="cart-items" class="cart-items" aria-label="Produk di keranjang"></ul>
-      <div class="cart-summary"><span>Subtotal</span><strong id="cart-total">$0.00</strong></div>
-      <p class="cart-note">Keranjang ini hanya demo; belum ada proses pembayaran.</p>
+      <div class="cart-body">
+        <p id="cart-empty" class="cart-empty">Keranjang masih kosong.</p>
+        <ul id="cart-items" class="cart-items" aria-label="Produk di keranjang"></ul>
+      </div>
+      <div class="cart-summary">
+        <span>Sub Total</span>
+        <strong id="cart-total">$0.00</strong>
+      </div>
     </dialog>
 
     <footer class="footer" aria-label="Contact information">
-      <div class="footer-brand"><img src="../asset/seno.svg" alt="SENO" width="214" height="62"></div>
+      <div class="footer-brand">
+        <img src="../asset/seno.svg" alt="SENO" width="214" height="62">
+      </div>
       <address class="contact-details">
-        <a href="https://www.its.ac.id/"><img src="../asset/web.svg" alt="" width="14" height="14"><span>www.its.ac.id</span></a>
-        <a href="tel:+626767676767"><img src="../asset/phone.svg" alt="" width="14" height="14"><span>+62 6767 6767 67</span></a>
-        <a href="https://www.instagram.com/its_campus/"><img src="../asset/instagram.svg" alt="" width="15" height="15"><span>its_campus</span></a>
+        <a href="https://www.its.ac.id/">
+          <img src="../asset/web.svg" alt="" width="14" height="14">
+          <span>www.its.ac.id</span>
+        </a>
+        <a href="tel:+626767676767">
+          <img src="../asset/phone.svg" alt="" width="14" height="14">
+          <span>+62 6767 6767 67</span>
+        </a>
+        <a href="https://www.instagram.com/its_campus/">
+          <img src="../asset/instagram.svg" alt="" width="15" height="15">
+          <span>its_campus</span>
+        </a>
       </address>
       <img class="ornament footer-ornament" src="../asset/ornament.svg" alt="" aria-hidden="true">
     </footer>
