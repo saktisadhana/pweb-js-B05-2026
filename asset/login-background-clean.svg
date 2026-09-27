@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 848" preserveAspectRatio="none" fill="none">
+  <defs>
+    <linearGradient id="surface" x1="0" y1="0" x2="0" y2="848" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#151619"/><stop offset="1" stop-color="#24272c"/>
+    </linearGradient>
+    <linearGradient id="guides" x1="0" y1="0" x2="0" y2="848" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity=".042"/>
+      <stop offset=".78" stop-color="white" stop-opacity=".042"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#surface)" d="M0 0H1440V848H0Z"/>
+  <path d="M90 0V848M282 0V848M304 0V848M496 0V848M517 0V848M709 0V848M730 0V848M922 0V848M945 0V848M1137 0V848M1160 0V848M1352 0V848" stroke="url(#guides)" stroke-width="2" stroke-dasharray="16 16"/>
+</svg>

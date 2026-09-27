@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#151619">
+  <title>Product Catalog | SENO Shop</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/catalog.css">
+  <script src="../js/catalog.js" defer></script>
+</head>
+<body>
+  <div class="page catalog-page">
+    <main class="catalog-main" aria-labelledby="catalog-title">
+      <h1 id="catalog-title" class="visually-hidden">Product Catalog</h1>
+      <header class="catalog-header">
+        <a class="catalog-logo" href="catalog.html" aria-label="SENO Shop — Product Catalog">
+          <img src="../asset/seno-shop.svg" alt="SENO Shop" width="200" height="88">
+        </a>
+        <div class="catalog-toolbar">
+          <button id="cart-button" class="cart-button" type="button">Cart</button>
+          <label class="catalog-search">
+            <span class="visually-hidden">Cari Produk atau Kategori</span>
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/></svg>
+            <input id="product-search" type="search" placeholder="Cari Produk atau Kategori" autocomplete="off">
+          </label>
+        </div>
+        <a class="exit-button" href="index.html">Exit</a>
+      </header>
+      <div class="catalog-motifs" aria-hidden="true">
+        <img src="../asset/ornament.svg" alt="">
+        <img src="../asset/ornament.svg" alt="">
+      </div>
+      <!-- Static design only. Search and cart behavior will be added later. -->
+      <section class="product-viewport" aria-label="Daftar produk" tabindex="0">
+        <div class="product-grid">
+        <article class="product-card" data-product-id="seno-cap-1">
+          <div class="product-photo">
+            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
+            <span class="discount" aria-label="5 percent discount">-5%</span>
+          </div>
+          <div class="product-info">
+            <h2>SENO Cap</h2>
+            <p class="product-price">Rp. 45,000.00</p>
+            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
+          </div>
+        </article>
+        <article class="product-card" data-product-id="seno-cap-2">
+          <div class="product-photo">
+            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
+            <span class="discount" aria-label="5 percent discount">-5%</span>
+          </div>
+          <div class="product-info">
+            <h2>SENO Cap</h2>
+            <p class="product-price">Rp. 45,000.00</p>
+            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
+          </div>
+        </article>
+        <article class="product-card" data-product-id="seno-cap-3">
+          <div class="product-photo">
+            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
+            <span class="discount" aria-label="5 percent discount">-5%</span>
+          </div>
+          <div class="product-info">
+            <h2>SENO Cap</h2>
+            <p class="product-price">Rp. 45,000.00</p>
+            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
+          </div>
+        </article>
+        <article class="product-card" data-product-id="seno-cap-4">
+          <div class="product-photo">
+            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
+            <span class="discount" aria-label="5 percent discount">-5%</span>
+          </div>
+          <div class="product-info">
+            <h2>SENO Cap</h2>
+            <p class="product-price">Rp. 45,000.00</p>
+            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
+          </div>
+        </article>
+        <article class="product-card" data-product-id="seno-cap-5">
+          <div class="product-photo">
+            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
+            <span class="discount" aria-label="5 percent discount">-5%</span>
+          </div>
+          <div class="product-info">
+            <h2>SENO Cap</h2>
+            <p class="product-price">Rp. 45,000.00</p>
+            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
+          </div>
+        </article>
+        <article class="product-card" data-product-id="seno-cap-6">
+          <div class="product-photo">
+            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
+            <span class="discount" aria-label="5 percent discount">-5%</span>
+          </div>
+          <div class="product-info">
+            <h2>SENO Cap</h2>
+            <p class="product-price">Rp. 45,000.00</p>
+            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
+          </div>
+        </article>
+        </div>
+      </section>
+    </main>
+    <footer class="footer" aria-label="Contact information">
+      <div class="footer-brand">
+        <img src="../asset/seno.svg" alt="SENO" width="214" height="62">
+      </div>
+      <address class="contact-details">
+        <a href="https://www.its.ac.id/">
+          <img src="../asset/web.svg" alt="" width="14" height="14">
+          <span>www.its.ac.id</span>
+        </a>
+        <a href="tel:+626767676767">
+          <img src="../asset/phone.svg" alt="" width="14" height="14">
+          <span>+62 6767 6767 67</span>
+        </a>
+        <a href="https://www.instagram.com/its_campus/">
+          <img src="../asset/instagram.svg" alt="" width="15" height="15">
+          <span>its_campus</span>
+        </a>
+      </address>
+      <img class="ornament footer-ornament" src="../asset/ornament.svg" alt="" aria-hidden="true">
+    </footer>
+  </div>
+</body>
+</html>

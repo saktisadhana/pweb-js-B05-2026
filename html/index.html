@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#151619">
+  <title>Login | SENO Shop</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/script.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <main class="login-section" aria-labelledby="login-title">
+      <header class="brand">
+        <img src="../asset/seno-shop.svg" alt="SENO Shop" width="200" height="88">
+      </header>
+
+      <div class="decorations" aria-hidden="true">
+        <img class="ornament ornament-top" src="../asset/ornament.svg" alt="">
+        <img class="ornament ornament-left" src="../asset/ornament.svg" alt="">
+        <img class="ornament ornament-right" src="../asset/ornament.svg" alt="">
+      </div>
+
+      <section class="login-panel" aria-labelledby="login-title">
+        <h1 id="login-title"><img src="../asset/login-heading.svg" alt="Login" width="296" height="77"></h1>
+        <p class="subtitle">Sign In to Your Account</p>
+
+        <!-- Authentication and password recovery will be wired up later. -->
+        <form id="login-form" class="login-form">
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" spellcheck="false" autocapitalize="none">
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password">
+          </div>
+          <button class="forgot-password" id="forgot-password" type="button">Forgot Password?</button>
+          <button class="login-button" id="login-button" type="button">Login</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="footer" aria-label="Contact information">
+      <div class="footer-brand">
+        <img src="../asset/seno.svg" alt="SENO" width="214" height="62">
+      </div>
+      <address class="contact-details">
+        <a href="https://www.its.ac.id/">
+          <img src="../asset/web.svg" alt="" width="14" height="14">
+          <span>www.its.ac.id</span>
+        </a>
+        <a href="tel:+626767676767">
+          <img src="../asset/phone.svg" alt="" width="14" height="14">
+          <span>+62 6767 6767 67</span>
+        </a>
+        <a href="https://www.instagram.com/its_campus/">
+          <img src="../asset/instagram.svg" alt="" width="15" height="15">
+          <span>its_campus</span>
+        </a>
+      </address>
+      <img class="ornament footer-ornament" src="../asset/ornament.svg" alt="" aria-hidden="true">
+    </footer>
+  </div>
+</body>
+</html>
