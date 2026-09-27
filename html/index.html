@@ -25,18 +25,18 @@
         <h1 id="login-title"><img src="../asset/login-heading.svg" alt="Login" width="296" height="77"></h1>
         <p class="subtitle">Sign In to Your Account</p>
 
-        <!-- Authentication and password recovery will be wired up later. -->
+        <!-- Credentials are verified against DummyJSON by login.js. -->
         <form id="login-form" class="login-form">
           <div class="field">
             <label for="username">Username</label>
-            <input id="username" name="username" type="text" autocomplete="username" spellcheck="false" autocapitalize="none">
+            <input id="username" name="username" type="text" autocomplete="username" spellcheck="false" autocapitalize="none" required>
           </div>
           <div class="field">
             <label for="password">Password</label>
-            <input id="password" name="password" type="password" autocomplete="current-password">
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
           </div>
           <button class="forgot-password" id="forgot-password" type="button">Forgot Password?</button>
-          <button class="login-button" id="login-button" type="button">Login</button>
+          <button class="login-button" id="login-button" type="submit">Login</button>
         </form>
       </section>
     </main>

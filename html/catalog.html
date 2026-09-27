@@ -14,11 +14,11 @@
     <main class="catalog-main" aria-labelledby="catalog-title">
       <h1 id="catalog-title" class="visually-hidden">Product Catalog</h1>
       <header class="catalog-header">
-        <a class="catalog-logo" href="catalog.html" aria-label="SENO Shop — Product Catalog">
+        <a class="catalog-logo" href="catalog.html" aria-label="SENO Shop - Product Catalog">
           <img src="../asset/seno-shop.svg" alt="SENO Shop" width="200" height="88">
         </a>
         <div class="catalog-toolbar">
-          <button id="cart-button" class="cart-button" type="button">Cart</button>
+          <button id="cart-button" class="cart-button" type="button" aria-label="Buka keranjang, 0 produk" aria-haspopup="dialog">Keranjang <span id="cart-count" class="cart-count" aria-hidden="true">0</span></button>
           <label class="catalog-search">
             <span class="visually-hidden">Cari Produk atau Kategori</span>
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.5 4.5"/></svg>
@@ -31,95 +31,60 @@
         <img src="../asset/ornament.svg" alt="">
         <img src="../asset/ornament.svg" alt="">
       </div>
-      <!-- Static design only. Search and cart behavior will be added later. -->
       <section class="product-viewport" aria-label="Daftar produk" tabindex="0">
-        <div class="product-grid">
-        <article class="product-card" data-product-id="seno-cap-1">
-          <div class="product-photo">
-            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
-            <span class="discount" aria-label="5 percent discount">-5%</span>
-          </div>
-          <div class="product-info">
-            <h2>SENO Cap</h2>
-            <p class="product-price">Rp. 45,000.00</p>
-            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
-          </div>
-        </article>
-        <article class="product-card" data-product-id="seno-cap-2">
-          <div class="product-photo">
-            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
-            <span class="discount" aria-label="5 percent discount">-5%</span>
-          </div>
-          <div class="product-info">
-            <h2>SENO Cap</h2>
-            <p class="product-price">Rp. 45,000.00</p>
-            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
-          </div>
-        </article>
-        <article class="product-card" data-product-id="seno-cap-3">
-          <div class="product-photo">
-            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
-            <span class="discount" aria-label="5 percent discount">-5%</span>
-          </div>
-          <div class="product-info">
-            <h2>SENO Cap</h2>
-            <p class="product-price">Rp. 45,000.00</p>
-            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
-          </div>
-        </article>
-        <article class="product-card" data-product-id="seno-cap-4">
-          <div class="product-photo">
-            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
-            <span class="discount" aria-label="5 percent discount">-5%</span>
-          </div>
-          <div class="product-info">
-            <h2>SENO Cap</h2>
-            <p class="product-price">Rp. 45,000.00</p>
-            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
-          </div>
-        </article>
-        <article class="product-card" data-product-id="seno-cap-5">
-          <div class="product-photo">
-            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
-            <span class="discount" aria-label="5 percent discount">-5%</span>
-          </div>
-          <div class="product-info">
-            <h2>SENO Cap</h2>
-            <p class="product-price">Rp. 45,000.00</p>
-            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
-          </div>
-        </article>
-        <article class="product-card" data-product-id="seno-cap-6">
-          <div class="product-photo">
-            <img src="../asset/catalog/ce09f091394f1b69a22a2289856226a4a99cc6d9.png" alt="SENO cap worn under hanging lights" width="298" height="210">
-            <span class="discount" aria-label="5 percent discount">-5%</span>
-          </div>
-          <div class="product-info">
-            <h2>SENO Cap</h2>
-            <p class="product-price">Rp. 45,000.00</p>
-            <button class="add-to-cart" type="button">Tambah Ke Keranjang</button>
-          </div>
-        </article>
+        <p id="welcome-text" class="welcome-text"></p>
+        <p id="catalog-error" class="catalog-error" role="alert" hidden></p>
+        <div class="catalog-filters">
+          <label><span class="visually-hidden">Kategori</span><select id="category-filter"><option value="all">Semua Kategori</option></select></label>
+          <label><span class="visually-hidden">Urutkan</span><select id="sort-filter">
+            <option value="default">Urutkan</option>
+            <option value="price-asc">Harga Terendah</option>
+            <option value="price-desc">Harga Tertinggi</option>
+            <option value="rating-desc">Rating Tertinggi</option>
+          </select></label>
         </div>
+        <div id="product-grid" class="product-grid" aria-live="polite"><p>Memuat produk...</p></div>
+        <button id="load-more" class="load-more" type="button" hidden>Muat Lebih Banyak</button>
       </section>
     </main>
-    <footer class="footer" aria-label="Contact information">
-      <div class="footer-brand">
-        <img src="../asset/seno.svg" alt="SENO" width="214" height="62">
+
+    <p id="cart-status" class="visually-hidden" role="status" aria-live="polite"></p>
+    <dialog id="product-dialog" class="shop-dialog product-dialog" aria-labelledby="detail-title">
+      <div class="dialog-heading">
+        <span>DETAIL PRODUK</span>
+        <form method="dialog"><button class="dialog-close" type="submit" aria-label="Tutup detail produk">&times;</button></form>
       </div>
+      <div class="detail-layout">
+        <div class="detail-photo"><img id="detail-image" alt="" width="298" height="210"></div>
+        <div class="detail-content">
+          <h2 id="detail-title"></h2>
+          <p class="detail-brand">Brand: <span id="detail-brand"></span></p>
+          <p id="detail-price" class="detail-price"></p>
+          <p id="detail-stock" class="detail-stock"></p>
+          <p id="detail-description" class="detail-description"></p>
+          <button id="detail-add" class="dialog-primary" type="button">Tambah ke Keranjang</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="cart-dialog" class="shop-dialog cart-dialog" aria-labelledby="cart-title">
+      <div class="dialog-heading">
+        <span>KERANJANG BELANJA</span>
+        <form method="dialog"><button class="dialog-close" type="submit" aria-label="Tutup keranjang">&times;</button></form>
+      </div>
+      <h2 id="cart-title">Keranjang Anda</h2>
+      <p id="cart-empty" class="cart-empty">Keranjang masih kosong.</p>
+      <ul id="cart-items" class="cart-items" aria-label="Produk di keranjang"></ul>
+      <div class="cart-summary"><span>Subtotal</span><strong id="cart-total">$0.00</strong></div>
+      <p class="cart-note">Keranjang ini hanya demo; belum ada proses pembayaran.</p>
+    </dialog>
+
+    <footer class="footer" aria-label="Contact information">
+      <div class="footer-brand"><img src="../asset/seno.svg" alt="SENO" width="214" height="62"></div>
       <address class="contact-details">
-        <a href="https://www.its.ac.id/">
-          <img src="../asset/web.svg" alt="" width="14" height="14">
-          <span>www.its.ac.id</span>
-        </a>
-        <a href="tel:+626767676767">
-          <img src="../asset/phone.svg" alt="" width="14" height="14">
-          <span>+62 6767 6767 67</span>
-        </a>
-        <a href="https://www.instagram.com/its_campus/">
-          <img src="../asset/instagram.svg" alt="" width="15" height="15">
-          <span>its_campus</span>
-        </a>
+        <a href="https://www.its.ac.id/"><img src="../asset/web.svg" alt="" width="14" height="14"><span>www.its.ac.id</span></a>
+        <a href="tel:+626767676767"><img src="../asset/phone.svg" alt="" width="14" height="14"><span>+62 6767 6767 67</span></a>
+        <a href="https://www.instagram.com/its_campus/"><img src="../asset/instagram.svg" alt="" width="15" height="15"><span>its_campus</span></a>
       </address>
       <img class="ornament footer-ornament" src="../asset/ornament.svg" alt="" aria-hidden="true">
     </footer>

@@ -295,3 +295,20 @@ h1 img { width: 100%; height: auto; }
   .contact-details a { min-height: 38px; }
   .footer-ornament { width: 48px; top: 18px; right: 18px; }
 }
+
+@keyframes enter-softly {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.brand { animation: enter-softly 650ms ease-out both; }
+.login-panel { animation: enter-softly 700ms 100ms ease-out both; }
+.login-button { transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease; }
+.login-button:hover { transform: translateY(-2px); }
+.login-button:active { transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .brand, .login-panel { animation: none; }
+  .login-button { transition: none; }
+  .login-button:hover, .login-button:active { transform: none; }
+}

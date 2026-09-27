@@ -12,11 +12,8 @@ loginMessage.style.textAlign = "center";
 loginMessage.style.color = "#fdbb16";
 loginForm.appendChild(loginMessage);
 
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
 	event.preventDefault();
-});
-
-loginButton.addEventListener("click", async () => {
 	const username = usernameInput.value.trim();
 	const password = passwordInput.value;
 
